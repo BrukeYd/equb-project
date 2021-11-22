@@ -673,17 +673,16 @@ class Ui_MainWindow(object):
 
     def debt_button_function(self,MainWindow, tableWidget,tableWidget_debt):
         debt_index = self.debt_week_index.value() + 2
-        round = self.spinBox.value()
         weekPaid = tableWidget.columnCount()-1
+
         if (tableWidget.rowCount() > 1 & debt_index < weekPaid):
             currentRow = self.tableWidget.rowCount()
-
             for eachRow in range(currentRow):
                 item = tableWidget.item(eachRow, debt_index)
                 weekDebt = 0
                 committment = tableWidget.item(eachRow, 2)
                 commit = 1
-                cumultaiveDebt = 0
+                
                 if (committment == 'H'):
                     commit = 2
                 elif (committment == 'Q'):
