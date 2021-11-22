@@ -515,7 +515,7 @@ class Ui_MainWindow(object):
         self.open_button.setText(_translate("MainWindow", "Load", None))
         self.generate.setText(_translate("MainWindow", "Generate PDF", None))
         self.generate_debt.setText(_translate("MainWindow", "Generate PDF", None))
-        self.debt_button.setText(_translate("MainWindow", "show Debt", None))
+        self.debt_button.setText(_translate("MainWindow", "Show Debt", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Equb Table", None))
 
         '''BOA'''
@@ -677,20 +677,29 @@ class Ui_MainWindow(object):
         weekPaid = tableWidget.columnCount()-1
         if (tableWidget.rowCount() > 1 & debt_index < weekPaid):
             currentRow = self.tableWidget.rowCount()
+
             for eachRow in range(currentRow):
                 item = tableWidget.item(eachRow, debt_index)
                 weekDebt = 0
                 committment = tableWidget.item(eachRow, 2)
                 commit = 1
+                cumultaiveDebt = 0
                 if (committment == 'H'):
                     commit = 2
                 elif (committment == 'Q'):
                     commit = 4
                 if item is None:
                     item = 0
-                    weekDebt = -1 * (int(int(self.full_amount)/ (commit * round)))
+                    weekDebt = -1 * int(int(self.full_amount)/ commit)
                 else:
-                    weekDebt = -1 * (int(int(self.full_amount)/ (commit * round)) - int(item.text()))
+                    weekDebt = (-1 * int(int(self.full_amount)/ commit)) + int(item.text())
+                for previous in range(3, debt_index):
+                    previtem = tableWidget.item(eachRow, previous)
+                    if previtem is None:
+                        weekDebt -= int(int(self.full_amount)/ commit)
+                    else:
+                        prevdebt = int(int(self.full_amount) / commit) - int(previtem.text())
+                        weekDebt -= prevdebt
                 tableWidget_debt.setItem(eachRow, 2, QtGui.QTableWidgetItem(str(weekDebt)))
 
 
