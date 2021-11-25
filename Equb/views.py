@@ -682,11 +682,12 @@ class Ui_MainWindow(object):
                 weekDebt = 0
                 committment = tableWidget.item(eachRow, 2)
                 commit = 1
-                
-                if (committment == 'H'):
-                    commit = 2
-                elif (committment == 'Q'):
-                    commit = 4
+                if (committment is not None):
+                    if (committment.text() == 'H'):
+                        commit = 2
+                    elif (committment.text() == 'Q'):
+                        commit = 4
+
                 if item is None:
                     item = 0
                     weekDebt = -1 * int(int(self.full_amount)/ commit)
@@ -700,7 +701,6 @@ class Ui_MainWindow(object):
                         prevdebt = int(int(self.full_amount) / commit) - int(previtem.text())
                         weekDebt -= prevdebt
                 tableWidget_debt.setItem(eachRow, 2, QtGui.QTableWidgetItem(str(weekDebt)))
-
 
     def add_button_function(self,MainWindow,tablewidget,bank_books,tableWidget_debt,rounds):
         self.count +=1
