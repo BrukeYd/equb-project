@@ -21,9 +21,9 @@ from model import EqubModel
 import numpy as np
 import sys, csv
 import tempfile
-
+from fpdf import FPDF
 tmp_file, tmp_file_filename = tempfile.mkstemp()
-
+from AnyQt import QtPrintSupport
 
 database_file = str(os.getcwd() + "/" + str("Equb.sqlite")).replace("\\","/")
 default_path = os.path.dirname(os.path.abspath(__file__))
@@ -906,7 +906,7 @@ class Ui_MainWindow(object):
         if rowcount or columncount < 0:
             all_table_information = np.empty((0, 0), dtype=object)
         else:
-            all_table_information = np.empty((rowcount - 1, columncount - 1), dtype=object)
+             all_table_information = np.empty((rowcount - 1, columncount - 1), dtype=object)
 
 
         if not path.isEmpty():
@@ -977,43 +977,46 @@ class Ui_MainWindow(object):
 
 
     def generate_function(self, MainWindow):
-        pass
-        # filename = "table.pdf"
-        # model = self.tableWidget.model()
-        # printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
-        # printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
-        # printer.setPaperSize(QtPrintSupport.QPrinter.A4)
-        # printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
-        # printer.setOutputFileName(filename)
-        #
-        # doc = QtGui.QTextDocument()
-        #
-        # html = """<html>
-        # <head>
-        # <style>
-        # table, th, td {
-        # border: 1px solid black;
-        # border-collapse: collapse;
-        # }
-        # </style>
-        # </head>"""
-        # html += "<table><thead>"
-        # html += "<tr>"
-        # for c in range(model.columnCount()):
-        #     html += "<th>{}</th>".format(model.headerData(c, QtCore.Qt.Horizontal))
-        #
-        # html += "</tr></thead>"
-        # html += "<tbody>"
-        # for r in range(model.rowCount()):
-        #     html += "<tr>"
-        #     for c in range(model.columnCount()):
-        #         html += "<td>{}</td>".format(model.index(r, c).data() or "")
-        # html += "</tr>"
-        # html += "</tbody></table>"
-        # doc.setHtml(html)
-        # doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
-        # doc.print_(printer)
+        #pass
+        filename = "table.pdf"
+        model = self.tableWidget.model()
+        printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
+        printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
+        printer.setPaperSize(QtPrintSupport.QPrinter.A4)
+        printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
+        printer.setOutputFileName(filename)
 
+        doc = QtGui.QTextDocument()
+
+        html = "<html><head><style>" \
+               " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
+               "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
+               "th{text-align:right; font-size:90%;}</style></head>"
+        html += "<body><table border>"
+
+        for row in range(-1, self.tableWidget.rowCount()- 1):
+            html += "<tr>"
+            for colomn in range(self.tableWidget.columnCount()):
+                if (row == -1):
+                    head = self.tableWidget.horizontalHeaderItem(colomn)
+                    if head is not None:
+                        html += "<th>"+ head.text() + "</th>"
+                else:
+                    item = self.tableWidget.item(row, colomn)
+                    if item is not None:
+                       html += "<td>"+ item.text()+ "</td>"
+                    else:
+                        html += "<td> </td>"
+            html += "</tr>"
+
+        html += "</table></body>"
+        html += "</html>"
+        doc.setHtml(html)
+        doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
+        doc.print_(printer)
+        # pdf = FPDF()
+        # pdf.add_page()
+        # pdf.cell(200,10,txt="")
 
 
 if __name__ == "__main__":
