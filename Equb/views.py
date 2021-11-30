@@ -484,6 +484,7 @@ class Ui_MainWindow(object):
         self.open_button.clicked.connect(lambda x: self.open_function(MainWindow))
         self.generate.clicked.connect(lambda x: self.generate_function(MainWindow))
         self.debt_button.clicked.connect(lambda x: self.debt_button_function(MainWindow, self.tableWidget, self.tableWidget_debt))
+        self.generate_debt.clicked.connect(lambda x:self.generate_debt_function(MainWindow))
         # self.add_cell_button.clicked.connect(lambda x: self.add_cell(MainWindow))
         self.count = 0
 
@@ -843,8 +844,6 @@ class Ui_MainWindow(object):
                 continue
 
 
-
-
         self.tableWidget.setColumnCount(4 + rounds)
         self.tableWidget.setRowCount(self.tableWidget.rowCount())
         item = QtGui.QTableWidgetItem()
@@ -979,7 +978,7 @@ class Ui_MainWindow(object):
     def generate_function(self, MainWindow):
         #pass
         filename = "table.pdf"
-        model = self.tableWidget.model()
+        #model = self.tableWidget.model()
         printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
         printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
         printer.setPaperSize(QtPrintSupport.QPrinter.A4)
@@ -1014,9 +1013,60 @@ class Ui_MainWindow(object):
         doc.setHtml(html)
         doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
         doc.print_(printer)
-        # pdf = FPDF()
-        # pdf.add_page()
-        # pdf.cell(200,10,txt="")
+
+    def generate_debt_function(self, MainWindow):
+        filename = "Debt_table.pdf"
+        # model = self.tableWidget.model()
+        printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
+        printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
+        printer.setPaperSize(QtPrintSupport.QPrinter.A4)
+        printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
+        printer.setOutputFileName(filename)
+
+        doc = QtGui.QTextDocument()
+
+        html = "<html><head><style>" \
+               " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
+               "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
+               "th{text-align:right; font-size:90%;}</style></head>"
+        html += "<body><table margin:100px 50px 100px;>"
+
+        for row in range(-1, self.tableWidget_debt.rowCount()):
+            html += "<tr>"
+            for colomn in range(self.tableWidget_debt.columnCount()):
+                if (row == -1):
+                    head = self.tableWidget_debt.horizontalHeaderItem(colomn)
+                    if head is not None:
+                        html += "<th>" + head.text() + "</th>"
+                elif(colomn == 2):
+                    week = self.spinBox.value()
+                    committment = self.tableWidget_debt.item(row, 2)
+                    commit = 1
+                    if (committment is not None):
+                        if (committment.text() == 'H'):
+                            commit = 2
+                        elif (committment.text() == 'Q'):
+                            commit = 4
+                    Hsum = self.tableWidget.item(row, self.tableWidget.columnCount()-1)
+                    Debt = int(int(int(self.full_amount) / commit) * week)
+                    if Hsum is not None:
+                        Debt -= int(Hsum.text())
+                        html += "<td>"+ str(Debt) + "</td>"
+                    else:
+                        html += "<td>"+ str(Debt) + "</td>"
+                else:
+                    item = self.tableWidget_debt.item(row, colomn)
+                    if item is not None:
+                        html += "<td>" + item.text() + "</td>"
+                    else:
+                        html += "<td> </td>"
+            html += "</tr>"
+
+        html += "</table></body>"
+        html += "</html>"
+        doc.setHtml(html)
+        doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
+        doc.print_(printer)
 
 
 if __name__ == "__main__":
