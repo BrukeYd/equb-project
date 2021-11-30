@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5b231551-6199-45e9-b6c7-82e26fdb3bf8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Equb/Debt_table.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Equb/Debt_table.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Equb/dialog_amount.py" beforeDir="false" afterPath="$PROJECT_DIR$/Equb/dialog_amount.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Equb/table.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Equb/table.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Equb/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Equb/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +16,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/equb_project$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1636003704170" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="C:/Program Files" />
-    <SUITE FILE_PATH="coverage/equb_project$dialog_first.coverage" NAME="dialog_first Coverage Results" MODIFIED="1638265283934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Equb" />
+    <SUITE FILE_PATH="coverage/equb_project$dialog_first.coverage" NAME="dialog_first Coverage Results" MODIFIED="1638274043762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Equb" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -38,19 +41,19 @@
     <session id="2075786075">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="9838" />
+          <entry key="py" value="10291" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="9838" />
+          <entry key="Python" value="10291" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="39" />
+          <entry key="project.closed" value="40" />
           <entry key="project.open.time.109" value="1" />
-          <entry key="project.open.time.13" value="3" />
+          <entry key="project.open.time.13" value="4" />
           <entry key="project.open.time.136" value="1" />
           <entry key="project.open.time.143" value="1" />
           <entry key="project.open.time.15" value="2" />
@@ -79,7 +82,7 @@
           <entry key="project.open.time.85" value="1" />
           <entry key="project.open.time.87" value="1" />
           <entry key="project.open.time.89" value="1" />
-          <entry key="project.opened" value="39" />
+          <entry key="project.opened" value="40" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -108,14 +111,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Equb/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-137">
-              <caret line="1031" column="54" selection-start-line="1031" selection-start-column="54" selection-end-line="1031" selection-end-column="54" />
+            <state relative-caret-position="-217">
+              <caret line="1031" column="38" selection-start-line="1031" selection-start-column="38" selection-end-line="1031" selection-end-column="38" />
               <folding>
                 <element signature="e#236#267#0" expanded="true" />
-                <marker date="1638265566965" expanded="true" signature="32146:32151" ph="..." />
-                <marker date="1638265566965" expanded="true" signature="32223:32224" ph="..." />
-                <marker date="1638265566965" expanded="true" signature="33626:33631" ph="..." />
-                <marker date="1638265566965" expanded="true" signature="46044:46053" ph="..." />
+                <marker date="1638274340349" expanded="true" signature="32146:32151" ph="..." />
+                <marker date="1638274340349" expanded="true" signature="32223:32224" ph="..." />
+                <marker date="1638274340349" expanded="true" signature="33626:33631" ph="..." />
+                <marker date="1638274340349" expanded="true" signature="46044:46053" ph="..." />
               </folding>
             </state>
           </provider>
@@ -142,12 +145,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Equb/dialog_amount.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11592">
-              <caret line="554" column="76" selection-start-line="554" selection-start-column="76" selection-end-line="554" selection-end-column="76" />
+            <state relative-caret-position="164">
+              <caret line="554" column="77" selection-start-line="554" selection-start-column="77" selection-end-line="554" selection-end-column="77" />
               <folding>
-                <marker date="1637780431762" expanded="true" signature="16188:16189" ph="..." />
-                <marker date="1637780431762" expanded="true" signature="16194:16257" ph="..." />
-                <marker date="1637780431762" expanded="true" signature="17230:17236" ph="..." />
+                <marker date="1638273750484" expanded="true" signature="16188:16189" ph="..." />
+                <marker date="1638273750484" expanded="true" signature="16194:16257" ph="..." />
+                <marker date="1638273750484" expanded="true" signature="17230:17236" ph="..." />
               </folding>
             </state>
           </provider>
@@ -210,6 +213,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -226,7 +230,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,7 +325,7 @@
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18532526" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18835099" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -439,18 +442,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Equb/dialog_amount.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11592">
-          <caret line="554" column="76" selection-start-line="554" selection-start-column="76" selection-end-line="554" selection-end-column="76" />
-          <folding>
-            <marker date="1637780431762" expanded="true" signature="16188:16189" ph="..." />
-            <marker date="1637780431762" expanded="true" signature="16194:16257" ph="..." />
-            <marker date="1637780431762" expanded="true" signature="17230:17236" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Equb/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
@@ -468,16 +459,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Equb/dialog_amount.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="554" column="77" selection-start-line="554" selection-start-column="77" selection-end-line="554" selection-end-column="77" />
+          <folding>
+            <marker date="1638273750484" expanded="true" signature="16188:16189" ph="..." />
+            <marker date="1638273750484" expanded="true" signature="16194:16257" ph="..." />
+            <marker date="1638273750484" expanded="true" signature="17230:17236" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Equb/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137">
-          <caret line="1031" column="54" selection-start-line="1031" selection-start-column="54" selection-end-line="1031" selection-end-column="54" />
+        <state relative-caret-position="-217">
+          <caret line="1031" column="38" selection-start-line="1031" selection-start-column="38" selection-end-line="1031" selection-end-column="38" />
           <folding>
             <element signature="e#236#267#0" expanded="true" />
-            <marker date="1638265566965" expanded="true" signature="32146:32151" ph="..." />
-            <marker date="1638265566965" expanded="true" signature="32223:32224" ph="..." />
-            <marker date="1638265566965" expanded="true" signature="33626:33631" ph="..." />
-            <marker date="1638265566965" expanded="true" signature="46044:46053" ph="..." />
+            <marker date="1638274340349" expanded="true" signature="32146:32151" ph="..." />
+            <marker date="1638274340349" expanded="true" signature="32223:32224" ph="..." />
+            <marker date="1638274340349" expanded="true" signature="33626:33631" ph="..." />
+            <marker date="1638274340349" expanded="true" signature="46044:46053" ph="..." />
           </folding>
         </state>
       </provider>

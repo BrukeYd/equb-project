@@ -552,7 +552,7 @@ class Ui_Dialog(object):
                         debt_per_week = str(-1 * (int(int(self.full_amount) - int(HSUM_array[i]))))
                         tablewidget_debt.setItem(i,2, QtGui.QTableWidgetItem(debt_per_week))
                     if commitment.text() == 'H':
-                        debt_per_week = str-1 * int(int(self.full_amount)/2) - int(HSUM_array[i])
+                        debt_per_week = str(-1 * (int(int(self.full_amount)/2 - int(HSUM_array[i]))))
                         tablewidget_debt.setItem(i,2, QtGui.QTableWidgetItem(debt_per_week))
                     if commitment.text() == 'Q':
                         debt_per_week = str(-1 * (int(int(self.full_amount)/4 - int(HSUM_array[i]))))

@@ -1029,45 +1029,32 @@ class Ui_MainWindow(object):
                " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
                "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
                "th{text-align:right; font-size:90%;}</style></head>"
-        html += "<body><table margin:100px 50px 100px;>"
-
+        html += "<body><table border>"
+        week = self.debt_week_index.value() + 2
         for row in range(-1, self.tableWidget_debt.rowCount()):
             html += "<tr>"
-            for colomn in range(self.tableWidget_debt.columnCount()):
-                if (row == -1):
-                    head = self.tableWidget_debt.horizontalHeaderItem(colomn)
+            for column in range(self.tableWidget_debt.columnCount()):
+              if (row == -1):
+                if(column == 2):
+                    head = self.tableWidget.horizontalHeaderItem(week)
                     if head is not None:
-                        html += "<th>" + head.text() + "</th>"
-                elif(colomn == 2):
-                    week = self.spinBox.value()
-                    committment = self.tableWidget_debt.item(row, 2)
-                    commit = 1
-                    if (committment is not None):
-                        if (committment.text() == 'H'):
-                            commit = 2
-                        elif (committment.text() == 'Q'):
-                            commit = 4
-                    Hsum = self.tableWidget.item(row, self.tableWidget.columnCount()-1)
-                    Debt = int(int(int(self.full_amount) / commit) * week)
-                    if Hsum is not None:
-                        Debt -= int(Hsum.text())
-                        html += "<td>"+ str(Debt) + "</td>"
-                    else:
-                        html += "<td>"+ str(Debt) + "</td>"
+                        html += "<th>"+ head.text() + "</th>"
                 else:
-                    item = self.tableWidget_debt.item(row, colomn)
-                    if item is not None:
-                        html += "<td>" + item.text() + "</td>"
-                    else:
-                        html += "<td> </td>"
+                    fromDebt = self.tableWidget_debt.horizontalHeaderItem(column)
+                    if fromDebt is not None:
+                        html += "<th>"+ fromDebt.text() + "</th>"
+              else:
+                  item = self.tableWidget_debt.item(row, column)
+                  if item is not None:
+                      html += "<td>" + item.text()+ "</td>"
+                  else:
+                      html += "<td> </td>"
             html += "</tr>"
-
         html += "</table></body>"
         html += "</html>"
         doc.setHtml(html)
         doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
         doc.print_(printer)
-
 
 if __name__ == "__main__":
     import sys
