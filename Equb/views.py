@@ -7,6 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from PyQt4.QtGui import QMessageBox, QPushButton, QHBoxLayout, QVBoxLayout
+
 import dialog_name
 import dialog_amount
 import dialog_bank_acc
@@ -21,7 +23,7 @@ from model import EqubModel
 import numpy as np
 import sys, csv
 import tempfile
-from fpdf import FPDF
+
 tmp_file, tmp_file_filename = tempfile.mkstemp()
 from AnyQt import QtPrintSupport
 
@@ -482,9 +484,9 @@ class Ui_MainWindow(object):
         # self.pushButton_4.clicked.connect(lambda x: self.clear_all_button_function(MainWindow))
         self.save_button.clicked.connect(lambda x: self.save_function(MainWindow))
         self.open_button.clicked.connect(lambda x: self.open_function(MainWindow))
-        self.generate.clicked.connect(lambda x: self.generate_function(MainWindow))
+        self.generate.clicked.connect(lambda x: self.create_message(MainWindow, "mainWindow"))
         self.debt_button.clicked.connect(lambda x: self.debt_button_function(MainWindow, self.tableWidget, self.tableWidget_debt))
-        self.generate_debt.clicked.connect(lambda x:self.generate_debt_function(MainWindow))
+        self.generate_debt.clicked.connect(lambda x:self.create_message(MainWindow, "debtWindow"))
         # self.add_cell_button.clicked.connect(lambda x: self.add_cell(MainWindow))
         self.count = 0
 
@@ -973,48 +975,66 @@ class Ui_MainWindow(object):
         self.tableWidget.removeRow(0)
         self.tableWidget.removeColumn(0)
         self.file = str(path)
+    def create_message(self,MainWindow, table):
+        vbox = QMessageBox(MainWindow)
+        vbox.setText("Do you want to Generate PDF file")
+        vbox.setWindowTitle("Generate PDF")
+        vbox.setIcon(QMessageBox.Information)
+        btn1 = QPushButton("Yes")
+        btn2 = QPushButton("No")
 
+        vbox.addButton(btn1,QMessageBox.YesRole)
+        vbox.addButton(btn2,QMessageBox.NoRole)
 
-    def generate_function(self, MainWindow):
+        vbox.exec_()
+
+        if(table == "mainWindow"):
+            if(vbox.clickedButton() == btn1):
+                self.generate_function()
+        if(table == "debtWindow"):
+            if(vbox.clickedButton() == btn1):
+                self.generate_debt_function()
+    def generate_function(self):
         #pass
-        filename = "table.pdf"
-        #model = self.tableWidget.model()
-        printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
-        printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
-        printer.setPaperSize(QtPrintSupport.QPrinter.A4)
-        printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
-        printer.setOutputFileName(filename)
 
-        doc = QtGui.QTextDocument()
+            filename = "table.pdf"
+            #model = self.tableWidget.model()
+            printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
+            printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
+            printer.setPaperSize(QtPrintSupport.QPrinter.A4)
+            printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
+            printer.setOutputFileName(filename)
 
-        html = "<html><head><style>" \
-               " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
-               "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
-               "th{text-align:right; font-size:90%;}</style></head>"
-        html += "<body><table border>"
+            doc = QtGui.QTextDocument()
 
-        for row in range(-1, self.tableWidget.rowCount()- 1):
-            html += "<tr>"
-            for colomn in range(self.tableWidget.columnCount()):
-                if (row == -1):
-                    head = self.tableWidget.horizontalHeaderItem(colomn)
-                    if head is not None:
-                        html += "<th>"+ head.text() + "</th>"
-                else:
-                    item = self.tableWidget.item(row, colomn)
-                    if item is not None:
-                       html += "<td>"+ item.text()+ "</td>"
+            html = "<html><head><style>" \
+                   " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
+                   "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
+                   "th{text-align:right; font-size:90%;}</style></head>"
+            html += "<body><table border>"
+
+            for row in range(-1, self.tableWidget.rowCount()- 1):
+                html += "<tr>"
+                for colomn in range(self.tableWidget.columnCount()):
+                    if (row == -1):
+                        head = self.tableWidget.horizontalHeaderItem(colomn)
+                        if head is not None:
+                            html += "<th>"+ head.text() + "</th>"
                     else:
-                        html += "<td> </td>"
-            html += "</tr>"
+                        item = self.tableWidget.item(row, colomn)
+                        if item is not None:
+                           html += "<td>"+ item.text()+ "</td>"
+                        else:
+                            html += "<td> </td>"
+                html += "</tr>"
 
-        html += "</table></body>"
-        html += "</html>"
-        doc.setHtml(html)
-        doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
-        doc.print_(printer)
+            html += "</table></body>"
+            html += "</html>"
+            doc.setHtml(html)
+            doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
+            doc.print_(printer)
 
-    def generate_debt_function(self, MainWindow):
+    def generate_debt_function(self):
         filename = "Debt_table.pdf"
         # model = self.tableWidget.model()
         printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
