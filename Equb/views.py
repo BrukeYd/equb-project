@@ -990,20 +990,57 @@ class Ui_MainWindow(object):
 
         if(table == "mainWindow"):
             if(vbox.clickedButton() == btn1):
-                self.generate_function()
+                self.generate_function(MainWindow)
         if(table == "debtWindow"):
             if(vbox.clickedButton() == btn1):
-                self.generate_debt_function()
-    def generate_function(self):
+                self.generate_debt_function(MainWindow)
+    def generate_function(self, MainWindow):
         #pass
+        path = QtGui.QFileDialog.getSaveFileName(MainWindow, 'Save File', default_path, 'PDF(*.pdf)')
+        if not path.isEmpty():
+                printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
+                printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
+                printer.setPaperSize(QtPrintSupport.QPrinter.A4)
+                printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
+                printer.setOutputFileName(path)
 
-            filename = "table.pdf"
-            #model = self.tableWidget.model()
-            printer =  QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
+                doc = QtGui.QTextDocument()
+
+                html = "<html><head><style>" \
+                       " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
+                       "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
+                       "th{text-align:right; font-size:90%;}</style></head>"
+                html += "<body><table border>"
+
+                for row in range(-1, self.tableWidget.rowCount()- 1):
+                    html += "<tr>"
+                    for colomn in range(self.tableWidget.columnCount()):
+                        if (row == -1):
+                            head = self.tableWidget.horizontalHeaderItem(colomn)
+                            if head is not None:
+                                html += "<th>"+ head.text() + "</th>"
+                        else:
+                            item = self.tableWidget.item(row, colomn)
+                            if item is not None:
+                               html += "<td>"+ item.text()+ "</td>"
+                            else:
+                                html += "<td> </td>"
+                    html += "</tr>"
+
+                html += "</table></body>"
+                html += "</html>"
+                doc.setHtml(html)
+                doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
+                doc.print_(printer)
+
+    def generate_debt_function(self, MainWindow):
+        path = QtGui.QFileDialog.getSaveFileName(MainWindow, 'Save File', default_path, 'PDF(*.pdf)')
+        if not path.isEmpty():
+            printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
             printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
             printer.setPaperSize(QtPrintSupport.QPrinter.A4)
             printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
-            printer.setOutputFileName(filename)
+            printer.setOutputFileName(path)
 
             doc = QtGui.QTextDocument()
 
@@ -1012,69 +1049,31 @@ class Ui_MainWindow(object):
                    "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
                    "th{text-align:right; font-size:90%;}</style></head>"
             html += "<body><table border>"
-
-            for row in range(-1, self.tableWidget.rowCount()- 1):
+            week = self.debt_week_index.value() + 2
+            for row in range(-1, self.tableWidget_debt.rowCount()):
                 html += "<tr>"
-                for colomn in range(self.tableWidget.columnCount()):
-                    if (row == -1):
-                        head = self.tableWidget.horizontalHeaderItem(colomn)
+                for column in range(self.tableWidget_debt.columnCount()):
+                  if (row == -1):
+                    if(column == 2):
+                        head = self.tableWidget.horizontalHeaderItem(week)
                         if head is not None:
                             html += "<th>"+ head.text() + "</th>"
                     else:
-                        item = self.tableWidget.item(row, colomn)
-                        if item is not None:
-                           html += "<td>"+ item.text()+ "</td>"
-                        else:
-                            html += "<td> </td>"
+                        fromDebt = self.tableWidget_debt.horizontalHeaderItem(column)
+                        if fromDebt is not None:
+                            html += "<th>"+ fromDebt.text() + "</th>"
+                  else:
+                      item = self.tableWidget_debt.item(row, column)
+                      if item is not None:
+                          html += "<td>" + item.text()+ "</td>"
+                      else:
+                          html += "<td> </td>"
                 html += "</tr>"
-
             html += "</table></body>"
             html += "</html>"
             doc.setHtml(html)
             doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
             doc.print_(printer)
-
-    def generate_debt_function(self):
-        filename = "Debt_table.pdf"
-        # model = self.tableWidget.model()
-        printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
-        printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
-        printer.setPaperSize(QtPrintSupport.QPrinter.A4)
-        printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
-        printer.setOutputFileName(filename)
-
-        doc = QtGui.QTextDocument()
-
-        html = "<html><head><style>" \
-               " table, th, td { letter-spacing:0.1em; border: 1px solid black;" \
-               "border-collapse: collapse; padding:7px 10px 10px 10px;}" \
-               "th{text-align:right; font-size:90%;}</style></head>"
-        html += "<body><table border>"
-        week = self.debt_week_index.value() + 2
-        for row in range(-1, self.tableWidget_debt.rowCount()):
-            html += "<tr>"
-            for column in range(self.tableWidget_debt.columnCount()):
-              if (row == -1):
-                if(column == 2):
-                    head = self.tableWidget.horizontalHeaderItem(week)
-                    if head is not None:
-                        html += "<th>"+ head.text() + "</th>"
-                else:
-                    fromDebt = self.tableWidget_debt.horizontalHeaderItem(column)
-                    if fromDebt is not None:
-                        html += "<th>"+ fromDebt.text() + "</th>"
-              else:
-                  item = self.tableWidget_debt.item(row, column)
-                  if item is not None:
-                      html += "<td>" + item.text()+ "</td>"
-                  else:
-                      html += "<td> </td>"
-            html += "</tr>"
-        html += "</table></body>"
-        html += "</html>"
-        doc.setHtml(html)
-        doc.setPageSize(QtCore.QSizeF(printer.pageRect().size()))
-        doc.print_(printer)
 
 if __name__ == "__main__":
     import sys
