@@ -5,6 +5,7 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
+import sqlite3
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import QMessageBox, QPushButton, QHBoxLayout, QVBoxLayout
@@ -901,6 +902,20 @@ class Ui_MainWindow(object):
         rowcount = self.tableWidget.rowCount()
         columncount = self.tableWidget.columnCount()
         rounds =  self.spinBox.value()
+        # vbox = QMessageBox(MainWindow)
+        # vbox.setText("Are you Sure you want to save?")
+        # vbox.setWindowTitle("Save File")
+        # vbox.setIcon(QMessageBox.Information)
+        # yesbtn = QPushButton("Yes")
+        # nobtn = QPushButton("No")
+        #
+        # vbox.addButton(yesbtn, QMessageBox.YesRole)
+        # vbox.addButton(nobtn, QMessageBox.NoRole)
+        #
+        # vbox.exec_()
+        #
+        # if(vbox.clickedButton()==yesbtn):
+
         path = QtGui.QFileDialog.getSaveFileName(MainWindow, 'Save File',default_path, 'CSV(*.csv)')
         '''Row-Column Loop'''
 
@@ -945,6 +960,9 @@ class Ui_MainWindow(object):
                 else:
                     break
         self.file = str(path)
+        connection = database.create_connection(database_file)
+        database.create_database_and_tables(database_file)
+
     def open_function(self,MainWindow):
         path = QtGui.QFileDialog.getOpenFileName(MainWindow, 'Open File', default_path , 'CSV(*.csv)')
         if not path.isEmpty():
@@ -1012,21 +1030,37 @@ class Ui_MainWindow(object):
                        "th{text-align:right; font-size:90%;}</style></head>"
                 html += "<body><table border>"
 
-                for row in range(-1, self.tableWidget.rowCount()- 1):
+                #anothertable = ""
+                for colomn in range(self.tableWidget.columnCount()):
                     html += "<tr>"
-                    for colomn in range(self.tableWidget.columnCount()):
-                        if (row == -1):
-                            head = self.tableWidget.horizontalHeaderItem(colomn)
-                            if head is not None:
-                                html += "<th>"+ head.text() + "</th>"
-                        else:
-                            item = self.tableWidget.item(row, colomn)
-                            if item is not None:
-                               html += "<td>"+ item.text()+ "</td>"
-                            else:
-                                html += "<td> </td>"
-                    html += "</tr>"
+                    head = self.tableWidget.horizontalHeaderItem(colomn)
+                    html += '<th width= "70">'+ head.text() + "</th>"
 
+                    for row in range(self.tableWidget.rowCount()- 1):
+                        # if((row%11)==0):
+                        #     if(row>10):
+                        #         anothertable += "<table>"
+                        #         for anotherrow in range(self.tableWidget.columnCount()):
+                        #             anothertable += "<tr>"
+                        #             header = self.tableWidget.horizontalHeaderItem(anotherrow)
+                        #             anothertable += '<th width= "70">'+ header.text() + "</th>"
+                        #
+                        #             for anothercoloumn in range(row, self.tableWidget.rowCount()-1):
+                        #                 item = self.tableWidget.item(anothercoloumn, anotherrow)
+                        #                 if item is not None:
+                        #                     anothertable += '<td width="60">' + item.text() + "</td>"
+                        #                 else:
+                        #                     anothertable += "<td> </td>"
+                        #         anothertable += "</table>"
+                        #         break
+                        item = self.tableWidget.item(row, colomn)
+                        if item is not None:
+                           html += '<td width="60">'+ item.text()+ "</td>"
+                        else:
+                           html += "<td> </td>"
+
+                    html += "</tr>"
+               # html += "</table>"+anothertable + "</body>"
                 html += "</table></body>"
                 html += "</html>"
                 doc.setHtml(html)
@@ -1038,8 +1072,8 @@ class Ui_MainWindow(object):
         if not path.isEmpty():
             printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.PrinterResolution)
             printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
-            printer.setPaperSize(QtPrintSupport.QPrinter.A4)
-            printer.setOrientation(QtPrintSupport.QPrinter.Landscape)
+            printer.setPaperSize(QtPrintSupport.QPrinter.A3)
+            printer.setOrientation(QtPrintSupport.QPrinter.Portrait)
             printer.setOutputFileName(path)
 
             doc = QtGui.QTextDocument()
